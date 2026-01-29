@@ -997,6 +997,120 @@
         opacity: 1;
         transform: translateY(0);
       }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(12px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        animation: modalFadeIn 0.3s ease;
+      }
+
+      .modal-content {
+        background: var(--dark-lighter);
+        border: 1px solid var(--glass-border);
+        border-radius: 28px;
+        padding: 3rem;
+        max-width: 550px;
+        width: 90%;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes modalFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes modalSlideUp {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      .modal-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-primary);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 1.5rem;
+        box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+      }
+
+      .modal-title {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .modal-message {
+        color: var(--text-primary);
+        font-size: 1.2rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      .credential-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .credential-info {
+        text-align: center;
+      }
+
+      .credential-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .credential-value {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .btn-close-modal {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 14px 40px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-close-modal:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+      }
     </style>
   </head>
   <body>
@@ -1094,7 +1208,7 @@
         <div class="hero-text">
           <div class="hero-badge">
             <span></span>
-            الإصدار 1.9.5 متوفر الآن
+            الإصدار 1.9.6 متوفر الآن
           </div>
           <h1>
             نظام <span class="highlight">إدارة المبيعات والمخازن</span><br />
@@ -1349,7 +1463,7 @@
           </div>
         </div>
 
-        <a href="https://1drv.ms/u/c/edc09b7416d423a3/IQDZ8eFCNzQCT6eDqi0_tqawAfot_gA1xmI80oNseWBIKRc?e=cbJVRY" download class="btn-download">
+        <a href="https://1drv.ms/u/c/edc09b7416d423a3/IQDZ8eFCNzQCT6eDqi0_tqawAfot_gA1xmI80oNseWBIKRc?e=cbJVRY" download class="btn-download" id="final-download-btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -1366,9 +1480,31 @@
           تحميل Dippo الآن
         </a>
 
-        <div class="version-tag">الإصدار 1.9.5 • © 2026-2027</div>
+        <div class="version-tag">الإصدار 1.9.6 • © 2026-2027</div>
       </div>
     </section>
+
+    <!-- Modal for Login Info -->
+    <div class="modal-overlay" id="login-modal">
+      <div class="modal-content">
+        <div class="modal-icon">🔑</div>
+        <h3 class="modal-title">معلومات الدخول</h3>
+        <p class="modal-message">
+          في نافذة تسجيل الدخول لبرنامج Dippo استخدم البيانات التالية:
+        </p>
+        <div class="credential-card">
+          <div class="credential-info">
+            <span class="credential-label">إسم المستخدم</span>
+            <span class="credential-value">admin</span>
+          </div>
+          <div class="credential-info">
+            <span class="credential-label">كلمة السر</span>
+            <span class="credential-value">admin123</span>
+          </div>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal()">حسناً، فهمت</button>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1436,6 +1572,31 @@
             target.scrollIntoView({ behavior: "smooth" });
           }
         });
+      });
+
+      // Show Login Modal on Download
+      const downloadBtn = document.getElementById('final-download-btn');
+      const loginModal = document.getElementById('login-modal');
+
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', (e) => {
+          // We show the modal, but still allow the download to start
+          loginModal.style.display = 'flex';
+          
+          // Optional: If we want to delay the download or something, we could.
+          // For now, let's just show the modal while the browser starts the download.
+        });
+      }
+
+      function closeModal() {
+        loginModal.style.display = 'none';
+      }
+
+      // Close modal when clicking outside content
+      loginModal.addEventListener('click', (e) => {
+        if (e.target === loginModal) {
+          closeModal();
+        }
       });
     </script>
   </body>
