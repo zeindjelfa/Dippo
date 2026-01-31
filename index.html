@@ -1111,6 +1111,51 @@
         transform: translateY(-2px);
         box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
       }
+
+      /* Scroll Indicator */
+      .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        animation: fadeInScroll 2s ease-out;
+      }
+
+      .mouse {
+        width: 26px;
+        height: 42px;
+        border: 2px solid var(--glass-border);
+        border-radius: 20px;
+        position: relative;
+      }
+
+      .wheel {
+        width: 4px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 2px;
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: wheelMove 2s infinite;
+      }
+
+      @keyframes wheelMove {
+        0% { transform: translate(-50%, 0); opacity: 1; }
+        100% { transform: translate(-50%, 15px); opacity: 0; }
+      }
+
+      @keyframes fadeInScroll {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
     </style>
   </head>
   <body>
@@ -1124,7 +1169,7 @@
     <header id="header">
       <nav>
         <a href="#" class="logo">
-          <img src="app/ui/assets/icon.png" alt="Dippo Logo" />
+          <img src="icon.png" alt="Dippo Logo" />
           <span class="logo-text">Dippo</span>
         </a>
         <ul class="nav-links">
@@ -1178,6 +1223,15 @@
                   </div>
                 </div>
               </div>
+              <div class="preview-card">
+                <div class="preview-icon" style="background: #0088cc">📱</div>
+                <div>
+                  <div style="font-weight: 600">بوت التيليغرام</div>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary)">
+                    تحكم عن بعد 24/7
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1208,7 +1262,7 @@
         <div class="hero-text">
           <div class="hero-badge">
             <span></span>
-            الإصدار 1.10.2 متوفر الآن
+            الإصدار 1.20 متوفر الآن
           </div>
           <h1>
             نظام <span class="highlight">إدارة المبيعات والمخازن</span><br />
@@ -1254,6 +1308,14 @@
           </div>
         </div>
       </div>
+      
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator">
+        <div class="mouse">
+          <div class="wheel"></div>
+        </div>
+        <span>اسحب للأسفل</span>
+      </div>
     </section>
 
     <!-- Features Section -->
@@ -1261,7 +1323,7 @@
       <div class="section-header">
         <span class="section-badge">✨ مميزات قوية</span>
         <h2 class="section-title">كل ما تحتاجه لإدارة عملك</h2>
-        <p class="section-subtitle">أكثر من 18 ميزة متقدمة مصممة خصيصاً لتسهيل عملياتك اليومية وزيادة إنتاجيتك وأمان بياناتك</p>
+        <p class="section-subtitle">أكثر من 20 ميزة متقدمة مصممة خصيصاً لتسهيل عملياتك اليومية وزيادة إنتاجيتك وأمان بياناتك، مع تحكم كامل عبر هاتفك</p>
       </div>
       <div class="features-grid">
             <!-- Core Features -->
@@ -1350,10 +1412,10 @@
                 <p class="feature-description">نسخ احتياطي تلقائي عند الإغلاق، دعم SQLite وPostgreSQL، استرجاع بنقرة واحدة، وحفظ في مسار مخصص.</p>
             </div>
             
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">📱</div>
-                <h3 class="feature-title">إشعارات Telegram</h3>
-                <p class="feature-description">تقارير مبيعات فورية، ملخصات ساعية، تنبيهات عند الإغلاق، إرسال إيصالات تلقائياً - كل ذلك على هاتفك مباشرة.</p>
+            <div class="feature-card animate-on-scroll featured">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #0088cc, #00a2ed);">📱</div>
+                <h3 class="feature-title">لوحة تحكم Telegram المتكاملة</h3>
+                <p class="feature-description">تحكم في تجارتك من أي مكان في العالم! استعرض تقارير المبيعات والأرباح، ابحث عن المنتجات، عدّل الأسعار، استلم تنبيهات الاحتيال، وقم بإجراء النسخ الاحتياطي - كل ذلك عبر تطبيق Telegram مباشرة وبأمان تام.</p>
             </div>
             
             <div class="feature-card animate-on-scroll">
@@ -1381,7 +1443,7 @@
     <section class="stats" id="stats">
       <div class="stats-container">
         <div class="stat-item animate-on-scroll">
-          <div class="stat-number">18+</div>
+          <div class="stat-number">20+</div>
           <div class="stat-label">ميزة أساسية</div>
         </div>
         <div class="stat-item animate-on-scroll">
@@ -1463,7 +1525,7 @@
           </div>
         </div>
 
-        <a href="https://www.mediafire.com/file/6ecpjej03ji3q8c/Dippo+v1.10.2.zip/file" download class="btn-download" id="final-download-btn">
+        <a href="https://www.mediafire.com/file/detstlrszshb6ty/Dippo+v1.20.zip/file" download class="btn-download" id="final-download-btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -1480,7 +1542,7 @@
           تحميل Dippo الآن
         </a>
 
-        <div class="version-tag">الإصدار 1.10.2 • © 2026-2027</div>
+        <div class="version-tag">الإصدار 1.20 • © 2026-2027</div>
       </div>
     </section>
 
@@ -1510,7 +1572,7 @@
     <footer>
       <div class="footer-content">
         <div class="footer-logo">
-          <img src="icon.png" alt="Dippo" />
+          <img src="../app/ui/assets/icon.png" alt="Dippo" />
           <span class="logo-text">Dippo</span>
         </div>
         <div class="footer-links">
@@ -1580,28 +1642,36 @@
 
       if (downloadBtn) {
         downloadBtn.addEventListener('click', (e) => {
-          // We show the modal, but still allow the download to start
-          loginModal.style.display = 'flex';
+          // Prevent the download from starting immediately
+          e.preventDefault();
           
-          // Optional: If we want to delay the download or something, we could.
-          // For now, let's just show the modal while the browser starts the download.
+          // Show the modal with credentials
+          loginModal.style.display = 'flex';
         });
       }
 
       function closeModal() {
         loginModal.style.display = 'none';
+        
+        // Trigger the download after the user clicks "Ok"
+        const downloadUrl = downloadBtn.getAttribute('href');
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = '';
+        a.target = '_blank'; // Open in new tab if needed for some browsers to handle direct links
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
       }
 
-      // Close modal when clicking outside content
+      // Close modal when clicking outside content (this should NOT trigger download usually, 
+      // but if we want it to just close without downloading, we can keep it as is. 
+      // However, usually the user expects the download to start after seeing the info.)
       loginModal.addEventListener('click', (e) => {
         if (e.target === loginModal) {
-          closeModal();
+          loginModal.style.display = 'none';
         }
       });
     </script>
   </body>
 </html>
-
-
-
-
